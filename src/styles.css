@@ -1,15 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+:root{
+  --nubegest-primary-color: #5783DE;
+  --nubegest-dark-blue-color: #101b31;
+  --nubegest-background-color: #192a4c;
+}
 
 .card-header {
-  background-color: #192a4c !important; /* Cambia el color de fondo */
+  background-color: var(--nubegest-background-color) !important; /* Cambia el color de fondo */
   color: white !important; /* Cambia el color del texto */
-  border-bottom: 2px solid #101b31 !important; /* Personaliza el borde */
+  border-bottom: 2px solid var(--nubegest-dark-blue-color) !important; /* Personaliza el borde */
 }
 
 
 /* Sidebar styles */
 .main-sidebar {
-  background-color: #192a4c !important; /* Verde  */
+  background-color: var(--nubegest-background-color) !important; /* Verde  */
   color: #FFFFFF !important; /* Texto en blanco */
 }
 
@@ -18,7 +23,7 @@
 }
 
 .main-sidebar .nav-link:hover, .main-sidebar .nav-link.active {
-  background-color: #5783DE !important; /* Gris oscuro para hover y activos */
+  background-color: var(--nubegest-primary-color) !important; /* Gris oscuro para hover y activos */
   color: #FFFFFF !important; /* Blanco para el texto */
 }
 
@@ -27,7 +32,7 @@
 }
 
 .brand-link {
-  background-color: #101b31 !important; /* Gris oscuro para el logo */
+  background-color: var(--nubegest-dark-blue-color) !important; /* Gris oscuro para el logo */
   color: #FFFFFF !important; /* Blanco para el texto */
 }
 
@@ -47,7 +52,7 @@
 }
 
 .main-header .nav-link {
-  color: #101b31 !important; /* Verde para los iconos y texto */
+  color: var(--nubegest-dark-blue-color) !important; 
 }
 
 .main-header .nav-link:hover {
@@ -66,11 +71,11 @@
 /* Footer styles */
 .main-footer {
   background-color: #f2f2f2 !important;
-  color: #101b31 !important; /* Verde  para el texto */
+  color: var(--nubegest-dark-blue-color) !important; /* Verde  para el texto */
 }
 
 .main-footer a {
-  color: #101b31 !important;
+  color: var(--nubegest-dark-blue-color) !important;
 }
 
 .main-footer a:hover {
@@ -78,7 +83,7 @@
 }
 
 .float-right {
-  color: #101b31 !important;
+  color: var(--nubegest-dark-blue-color) !important;
 }
 
 

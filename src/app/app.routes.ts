@@ -73,6 +73,10 @@ export const routes: Routes = [
     loadChildren: () => import('./features/productos/productos.routes').then(c => c.PRODUCTOS_ROUTES)
   },
   {
+    path: 'register',
+    loadComponent: ()=> import('./features/security/components/register/register.component').then(c => c.RegisterComponent)
+  },
+  {
     path: '**',
     loadComponent: () => import('./layout/page-not-found/page-not-found.component').then(c => c.PageNotFoundComponent)
   }

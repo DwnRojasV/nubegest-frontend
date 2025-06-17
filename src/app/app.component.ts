@@ -30,7 +30,7 @@ export class AppComponent {
 
 
     
-    return this.router.url !== '/login' ;
+    return !['/login','/register'].includes(this.router.url) ;
   }
   
 }
