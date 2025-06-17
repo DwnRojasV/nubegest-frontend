@@ -1,0 +1,79 @@
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-0">
+        <div class="col-sm-6">
+          <h1>Listado de Marcas</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="#">Marcas</a></li>
+            <li class="breadcrumb-item active">Listado</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Listado de Marcas</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <!-- Botón para agregar una nueva marca -->
+        <div class="mb-3">
+          <a href="/parameters/brands/create" class="btn btn-primary btn-sm">
+            <i class="fas fa-plus"></i> Nuevo Registro
+          </a>
+        </div>
+
+        <!-- Tabla de ngx-datatable -->
+        <ngx-datatable
+        tableClass="table table-striped table-bordered table-hover" 
+          [rows]="brands"
+          [columns]="columns"
+          [columnMode]="'force'"
+          [headerHeight]="50"
+          [footerHeight]="50"
+          [rowHeight]="'auto'"
+          [limit]="10"
+          [sortType]="sortType"
+          [reorderable]="true">
+          
+          <!-- Columna personalizada para botones de acción -->
+          <ngx-datatable-column [width]="150" [sortable]="false" [canAutoResize]="false">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <a [routerLink]="['/brands/show', row.id]" class="btn btn-info btn-sm mr-1">
+                <i class="fas fa-eye"></i> Mostrar
+              </a>
+              <a [routerLink]="['/brands/edit', row.id]" class="btn btn-warning btn-sm mr-1">
+                <i class="fas fa-edit"></i> Editar
+              </a>
+              <!-- <button (click)="deleteBrand(row.id)" class="btn btn-danger btn-sm">
+                <i class="fas fa-trash"></i> Eliminar
+              </button> -->
+              <button  class="btn btn-danger btn-sm">
+                <i class="fas fa-trash"></i> Eliminar
+              </button>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+      </div>
+
+      <div class="card-footer">
+        Listado de todas las marcas disponibles.
+      </div>
+    </div>
+  </section>
+</div>

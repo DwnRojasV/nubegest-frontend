@@ -1,0 +1,86 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Categorías de productos</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+            <li class="breadcrumb-item">
+              <a [routerLink]="['/parameters/categories']">Categorías</a>
+            </li>
+            <li class="breadcrumb-item active">Nuevo</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="card">
+      <form>
+        <div class="card-header">
+          <h3 class="card-title">Nuevo registro</h3>
+        </div>
+
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-6">
+              <!-- text input -->
+              <div class="form-group">
+                <label>Nombre</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Ingresar el nombre de la categoría ..."
+                />
+              </div>
+              <div class="form-group">
+                <label>Registro activo</label>
+                <select class="form-control">
+                  <option value="">Seleccione el estado del registro</option>
+                  <option value="1">Activo</option>
+                  <option value="0">Inactivo</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <!-- textarea -->
+              <div class="form-group">
+                <label>Descripción</label>
+                <textarea
+                  class="form-control"
+                  rows="5"
+                  placeholder="Ingrese la descripción"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <div class="row">
+            <div class="col-md-12 text-right">
+              <button type="submit" class="btn btn-success mr-2">
+                <i class="fas fa-save"></i> Guardar
+              </button>
+
+              <a
+                [routerLink]="['/parameters/categories']"
+                class="btn btn-warning"
+              >
+                <i class="fas fa-times"></i> Cancelar
+              </a>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>

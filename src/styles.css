@@ -1,0 +1,88 @@
+/* You can add global styles to this file, and also import other style files */
+
+.card-header {
+  background-color: #00c83c !important; /* Cambia el color de fondo */
+  color: white !important; /* Cambia el color del texto */
+  border-bottom: 2px solid #004d00 !important; /* Personaliza el borde */
+}
+
+
+/* Sidebar styles */
+.main-sidebar {
+  background-color: #192a4c !important; /* Verde  */
+  color: #FFFFFF !important; /* Texto en blanco */
+}
+
+.main-sidebar .nav-link {
+  color: #FFFFFF !important; /* Blanco para el texto */
+}
+
+.main-sidebar .nav-link:hover, .main-sidebar .nav-link.active {
+  background-color: #5783DE !important; /* Gris oscuro para hover y activos */
+  color: #FFFFFF !important; /* Blanco para el texto */
+}
+
+.main-sidebar .nav-icon {
+  color: #FFFFFF !important;
+}
+
+.brand-link {
+  background-color: #101b31 !important; /* Gris oscuro para el logo */
+  color: #FFFFFF !important; /* Blanco para el texto */
+}
+
+.brand-link .brand-image {
+  border-radius: 50% !important;
+}
+
+.brand-text {
+  font-weight: bold !important;
+  color: #FFFFFF !important; /* Blanco para el texto del nombre */
+}
+
+/* Navbar styles */
+.main-header {
+  background-color: #f2f2f2 !important; /* Gris claro */
+  color: #00c83c !important; /* Verde  */
+}
+
+.main-header .nav-link {
+  color: #870950 !important; /* Verde para los iconos y texto */
+}
+
+.main-header .nav-link:hover {
+  color: #373737 !important; /* Gris oscuro en hover */
+}
+
+.navbar-search-block {
+  background-color: #f2f2f2 !important;
+}
+
+.navbar-search-block input {
+  border: 1px solid #00c83c !important; /* Borde verde */
+  color: #00c83c !important; /* Texto en verde */
+}
+
+/* Footer styles */
+.main-footer {
+  background-color: #f2f2f2 !important;
+  color: #00c83c !important; /* Verde  para el texto */
+}
+
+.main-footer a {
+  color: #00c83c !important;
+}
+
+.main-footer a:hover {
+  color: #5d5d5d !important; /* Gris oscuro en hover */
+}
+
+.float-right {
+  color: #00c83c !important;
+}
+
+
+ngx-datatable {
+  width: 100% !important;
+  height: auto !important;
+}

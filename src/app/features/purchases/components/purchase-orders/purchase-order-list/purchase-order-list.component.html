@@ -1,0 +1,116 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-0">
+        <div class="col-sm-6">
+          <h1>Listado de Ordenes de Compra</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="#">Ordenes de Compra</a></li>
+            <li class="breadcrumb-item active">Listado</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <!-- Default box -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Listado de Ordenes de Compra</h3>
+
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <!-- Botón para agregar una nueva marca -->
+        <div class="mb-3">
+          <a href="/purchases/purchase-orders/create" class="btn btn-primary btn-sm">
+            <i class="fas fa-plus"></i> Nuevo Registro
+          </a>
+        </div>
+
+        <!-- Tabla de listado de marcas -->
+        <table class="table table-bordered table-striped table-sm">
+          <thead>
+            <tr>
+              <th style="width: 5%;" class="text-center">ID</th>
+              <th style="width: 5%;" class="text-center">Número</th>
+              <th style="width: 10%;" class="text-center">Fecha</th>
+              <th style="width: 30%;" class="text-center">Proveedor</th>
+              <th style="width: 15%;" class="text-center">Valor</th>
+              <th style="width: 10%;" class="text-center">Activo</th>
+              <th style="width: 25%;" class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Ejemplo de registro 1 -->
+            <tr>
+              <td>1</td>
+              <td>0001</td>
+              <td>18-10-2024</td>
+              <td>Camisetas Sport</td>
+              <td class="text-right">2.500.000</td>
+              <td>Sí</td>
+              <td class="text-center">
+                <a href="/purchases/purchase-orders/show" class="btn btn-info btn-sm mr-1"><i class="fas fa-eye"></i> Mostrar</a>
+                <a href="/ppurchases/purchase-orders/edit" class="btn btn-warning btn-sm mr-1"><i class="fas fa-edit"></i> Editar</a>
+                <a href="/purchases/purchase-orders/delete" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar</a>
+              </td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>0001</td>
+              <td>18-10-2024</td>
+              <td>Camisetas Sport</td>
+              <td class="text-right">2.500.000</td>
+              <td>Sí</td>
+              <td class="text-center">
+                <a href="/purchases/purchase-orders/show" class="btn btn-info btn-sm mr-1"><i class="fas fa-eye"></i> Mostrar</a>
+                <a href="/ppurchases/purchase-orders/edit" class="btn btn-warning btn-sm mr-1"><i class="fas fa-edit"></i> Editar</a>
+                <a href="/purchases/purchase-orders/delete" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar</a>
+              </td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>0001</td>
+              <td>18-10-2024</td>
+              <td>Camisetas Sport</td>
+              <td class="text-right">2.500.000</td>
+              <td>Sí</td>
+              <td class="text-center">
+                <a href="/purchases/purchase-orders/show" class="btn btn-info btn-sm mr-1"><i class="fas fa-eye"></i> Mostrar</a>
+                <a href="/ppurchases/purchase-orders/edit" class="btn btn-warning btn-sm mr-1"><i class="fas fa-edit"></i> Editar</a>
+                <a href="/purchases/purchase-orders/delete" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar</a>
+              </td>
+            </tr>
+
+            <!-- Más registros aquí -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- /.card-body -->
+      <div class="card-footer">
+        Listado de todas las ordenes de compra disponibles.
+      </div>
+      <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
