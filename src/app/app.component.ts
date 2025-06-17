@@ -3,11 +3,13 @@ import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./layout/header/header.component";
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { FooterComponent } from "./layout/footer/footer.component";
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
+    ReactiveFormsModule,
     RouterOutlet,
     RouterModule,
     HeaderComponent,
@@ -28,7 +30,7 @@ export class AppComponent {
 
 
     
-    return this.router.url !== '/newlogin' ;
+    return this.router.url !== '/login' ;
   }
   
 }
