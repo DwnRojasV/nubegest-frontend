@@ -1,9 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
 .card-header {
-  background-color: #00c83c !important; /* Cambia el color de fondo */
+  background-color: #192a4c !important; /* Cambia el color de fondo */
   color: white !important; /* Cambia el color del texto */
-  border-bottom: 2px solid #004d00 !important; /* Personaliza el borde */
+  border-bottom: 2px solid #101b31 !important; /* Personaliza el borde */
 }
 
 
@@ -47,7 +47,7 @@
 }
 
 .main-header .nav-link {
-  color: #870950 !important; /* Verde para los iconos y texto */
+  color: #101b31 !important; /* Verde para los iconos y texto */
 }
 
 .main-header .nav-link:hover {
@@ -66,11 +66,11 @@
 /* Footer styles */
 .main-footer {
   background-color: #f2f2f2 !important;
-  color: #00c83c !important; /* Verde  para el texto */
+  color: #101b31 !important; /* Verde  para el texto */
 }
 
 .main-footer a {
-  color: #00c83c !important;
+  color: #101b31 !important;
 }
 
 .main-footer a:hover {
@@ -78,7 +78,7 @@
 }
 
 .float-right {
-  color: #00c83c !important;
+  color: #101b31 !important;
 }
 
 
