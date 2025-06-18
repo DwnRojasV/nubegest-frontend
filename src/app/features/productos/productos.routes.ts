@@ -2,6 +2,7 @@ import { Routes } from "@angular/router";
 import { ListaProductosComponent } from "./componentes/lista-productos/lista-productos.component";
 import { CrearProductosComponent } from "./componentes/crear-productos/crear-productos.component";
 import { EditarProductosComponent } from "./componentes/editar-productos/editar-productos.component";
+import { UserTableComponent } from "../user/userTable/user-table.component";
 
 export const PRODUCTOS_ROUTES : Routes = [
   {
@@ -11,6 +12,7 @@ export const PRODUCTOS_ROUTES : Routes = [
     path: 'create', component: CrearProductosComponent
   },
   {
-    path: 'edit', component: EditarProductosComponent
+    path: 'edit', 
+    loadComponent: ()=>UserTableComponent
   }
 ]
