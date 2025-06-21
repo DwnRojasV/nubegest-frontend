@@ -25,10 +25,6 @@ export const routes: Routes = [
   },
 
   {
-    path: 'inventories/products',
-    loadChildren: () => import('./features/inventories/components/products/products.routes').then(c => c.PRODUCTS_ROUTES )
-  },
-  {
     path: 'purchases/purchase-orders',
     loadChildren: () => import('./features/purchases/components/purchase-orders/purchase-orders.routes').then(c => c.PURCHASE_ORDERS_ROUTES )
   },
@@ -71,6 +67,15 @@ export const routes: Routes = [
   {
     path: 'productos',
     loadChildren: () => import('./features/productos/productos.routes').then(c => c.PRODUCTOS_ROUTES)
+  },
+  {
+      path: 'productos/entradas',
+      loadChildren: () => import('./features/productos/componentes/entradas/entradas.routes').then(m => m.ENTRADAS_ROUTES)
+  },
+  {
+     path: 'productos/salidas',
+     loadChildren: () => import('./features/productos/componentes/salidas/salidas.routes').then(m => m.SALIDAS_ROUTES)
+
   },
   {
     path: 'register',

@@ -15,8 +15,8 @@
       </div>
     </div>
   </section>
+
   <section class="content">
-    <!-- Product Table -->
     <div class="card h-100">
       <div class="card-header">
         <h3>Listado de productos</h3>
@@ -32,98 +32,179 @@
               <th>Categoría</th>
               <th>Unidad</th>
               <th>Cantidad</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>1</td>
-              <td>Producto A</td>
-              <td>Descripción del producto A</td>
-              <td>Marca X</td>
-              <td>Electrónica</td>
+              <td>Laptop Dell XPS 13</td>
+              <td>Portátil ultraligero con pantalla InfinityEdge</td>
+              <td>Dell</td>
+              <td>Computadores</td>
               <td>Unidad</td>
-              <td>50</td>
+              <td>25</td>
+              <td>
+                <button class="btn btn-sm btn-warning mr-1" (click)="editarProducto(1)">
+                  <i class="fas fa-edit"></i> Editar
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="eliminarProducto(1)">
+                  <i class="fas fa-trash-alt"></i> Eliminar
+                </button>
+              </td>
             </tr>
             <tr>
               <td>2</td>
-              <td>Producto B</td>
-              <td>Descripción del producto B</td>
-              <td>Marca Y</td>
-              <td>Hogar</td>
+              <td>Monitor LG UltraWide</td>
+              <td>Pantalla curva de 34&quot; para multitarea</td>
+              <td>LG</td>
+              <td>Periféricos</td>
               <td>Unidad</td>
-              <td>30</td>
+              <td>10</td>
+              <td>
+                <button class="btn btn-sm btn-warning mr-1" (click)="editarProducto(2)">
+                  <i class="fas fa-edit"></i> Editar
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="eliminarProducto(2)">
+                  <i class="fas fa-trash-alt"></i> Eliminar
+                </button>
+              </td>
             </tr>
             <tr>
               <td>3</td>
-              <td>Producto C</td>
-              <td>Descripción del producto C</td>
-              <td>Marca Z</td>
-              <td>Alimentos</td>
-              <td>Kg</td>
-              <td>100</td>
+              <td>Smartphone Samsung Galaxy S24</td>
+              <td>Teléfono inteligente con cámara de 200MP</td>
+              <td>Samsung</td>
+              <td>Celulares</td>
+              <td>Unidad</td>
+              <td>15</td>
+              <td>
+                <button class="btn btn-sm btn-warning mr-1" (click)="editarProducto(3)">
+                  <i class="fas fa-edit"></i> Editar
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="eliminarProducto(3)">
+                  <i class="fas fa-trash-alt"></i> Eliminar
+                </button>
+              </td>
             </tr>
             <tr>
               <td>4</td>
-              <td>Producto D</td>
-              <td>Descripción del producto D</td>
-              <td>Marca A</td>
-              <td>Ropa</td>
-              <td>Pieza</td>
-              <td>200</td>
+              <td>Tablet iPad Air</td>
+              <td>Tableta con chip M1 y pantalla Liquid Retina</td>
+              <td>Apple</td>
+              <td>Tablets</td>
+              <td>Unidad</td>
+              <td>20</td>
+              <td>
+                <button class="btn btn-sm btn-warning mr-1" (click)="editarProducto(4)">
+                  <i class="fas fa-edit"></i> Editar
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="eliminarProducto(4)">
+                  <i class="fas fa-trash-alt"></i> Eliminar
+                </button>
+              </td>
             </tr>
             <tr>
               <td>5</td>
-              <td>Producto E</td>
-              <td>Descripción del producto E</td>
-              <td>Marca B</td>
-              <td>Electrodomésticos</td>
+              <td>Impresora HP LaserJet Pro</td>
+              <td>Impresora láser monocromática de alta velocidad</td>
+              <td>HP</td>
+              <td>Impresoras</td>
               <td>Unidad</td>
-              <td>10</td>
+              <td>8</td>
+              <td>
+                <button class="btn btn-sm btn-warning mr-1" (click)="editarProducto(5)">
+                  <i class="fas fa-edit"></i> Editar
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="eliminarProducto(5)">
+                  <i class="fas fa-trash-alt"></i> Eliminar
+                </button>
+              </td>
             </tr>
             <tr>
               <td>6</td>
-              <td>Producto F</td>
-              <td>Descripción del producto F</td>
-              <td>Marca C</td>
-              <td>Deportes</td>
+              <td>Disco SSD Samsung 980 PRO</td>
+              <td>Almacenamiento NVMe de 1TB con alta velocidad</td>
+              <td>Samsung</td>
+              <td>Almacenamiento</td>
               <td>Unidad</td>
-              <td>40</td>
+              <td>60</td>
+              <td>
+                <button class="btn btn-sm btn-warning mr-1" (click)="editarProducto(6)">
+                  <i class="fas fa-edit"></i> Editar
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="eliminarProducto(6)">
+                  <i class="fas fa-trash-alt"></i> Eliminar
+                </button>
+              </td>
             </tr>
             <tr>
               <td>7</td>
-              <td>Producto G</td>
-              <td>Descripción del producto G</td>
-              <td>Marca D</td>
-              <td>Juguetes</td>
+              <td>Router TP-Link AX3000</td>
+              <td>Router WiFi 6 para conexión de alta velocidad</td>
+              <td>TP-Link</td>
+              <td>Redes</td>
               <td>Unidad</td>
-              <td>25</td>
+              <td>18</td>
+              <td>
+                <button class="btn btn-sm btn-warning mr-1" (click)="editarProducto(7)">
+                  <i class="fas fa-edit"></i> Editar
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="eliminarProducto(7)">
+                  <i class="fas fa-trash-alt"></i> Eliminar
+                </button>
+              </td>
             </tr>
             <tr>
               <td>8</td>
-              <td>Producto H</td>
-              <td>Descripción del producto H</td>
-              <td>Marca E</td>
-              <td>Muebles</td>
+              <td>Mouse Logitech MX Master 3</td>
+              <td>Mouse ergonómico para productividad</td>
+              <td>Logitech</td>
+              <td>Periféricos</td>
               <td>Unidad</td>
-              <td>15</td>
+              <td>40</td>
+              <td>
+                <button class="btn btn-sm btn-warning mr-1" (click)="editarProducto(8)">
+                  <i class="fas fa-edit"></i> Editar
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="eliminarProducto(8)">
+                  <i class="fas fa-trash-alt"></i> Eliminar
+                </button>
+              </td>
             </tr>
             <tr>
               <td>9</td>
-              <td>Producto I</td>
-              <td>Descripción del producto I</td>
-              <td>Marca F</td>
-              <td>Herramientas</td>
+              <td>Teclado Mecánico Razer BlackWidow</td>
+              <td>Teclado gamer con retroiluminación RGB</td>
+              <td>Razer</td>
+              <td>Periféricos</td>
               <td>Unidad</td>
-              <td>50</td>
+              <td>22</td>
+              <td>
+                <button class="btn btn-sm btn-warning mr-1" (click)="editarProducto(9)">
+                  <i class="fas fa-edit"></i> Editar
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="eliminarProducto(9)">
+                  <i class="fas fa-trash-alt"></i> Eliminar
+                </button>
+              </td>
             </tr>
             <tr>
               <td>10</td>
-              <td>Producto J</td>
-              <td>Descripción del producto J</td>
-              <td>Marca G</td>
-              <td>Automotriz</td>
+              <td>Smartwatch Huawei Watch GT 4</td>
+              <td>Reloj inteligente con monitoreo de salud</td>
+              <td>Huawei</td>
+              <td>Wearables</td>
               <td>Unidad</td>
-              <td>5</td>
+              <td>13</td>
+              <td>
+                <button class="btn btn-sm btn-warning mr-1" (click)="editarProducto(10)">
+                  <i class="fas fa-edit"></i> Editar
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="eliminarProducto(10)">
+                  <i class="fas fa-trash-alt"></i> Eliminar
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>

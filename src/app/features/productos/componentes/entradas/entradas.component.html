@@ -1,0 +1,96 @@
+<div class="content-wrapper">
+  <!-- Encabezado -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Entradas de Inventario</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/dashboard">Inicio</a></li>
+            <li class="breadcrumb-item active">Entradas</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contenido principal -->
+  <section class="content">
+    <div class="card">
+      <div class="card-header bg-success">
+        <h3 class="card-title text-white">Registrar nueva entrada</h3>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label for="producto">Producto</label>
+              <input type="text" id="producto" class="form-control" placeholder="Nombre del producto">
+            </div>
+            <div class="col-md-2 mb-3">
+              <label for="cantidad">Cantidad</label>
+              <input type="number" id="cantidad" class="form-control" placeholder="Ej: 10">
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="fecha">Fecha de Entrada</label>
+              <input type="date" id="fecha" class="form-control">
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="proveedor">Proveedor</label>
+              <input type="text" id="proveedor" class="form-control" placeholder="Nombre del proveedor">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success mt-2">Guardar Entrada</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Tabla de entradas registradas -->
+    <div class="card mt-4">
+      <div class="card-header bg-info">
+        <h3 class="card-title text-white">Historial de Entradas</h3>
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Fecha</th>
+              <th>Proveedor</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Aquí se cargarían los datos dinámicamente -->
+            <tr>
+              <td>1</td>
+              <td>Teclado Gamer</td>
+              <td>15</td>
+              <td>2025-06-18</td>
+              <td>Proveedor XYZ</td>
+              <td>
+                <button class="btn btn-sm btn-warning mr-1"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Mouse Logitech</td>
+              <td>30</td>
+              <td>2025-06-17</td>
+              <td>Distribuidora ABC</td>
+              <td>
+                <button class="btn btn-sm btn-warning mr-1"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
