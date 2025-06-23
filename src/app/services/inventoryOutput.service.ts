@@ -28,4 +28,25 @@ export class InventoryOutputService {
       )
     );
   }
+
+  createInventoryOutput(
+    userId: string,
+    output: InventoryOutput
+  ): Observable<{ message: string; output_id: string }> {
+    const { productId, quantity, type, timestamp, observation } = output;
+
+    const newOutput = {
+      user_id: userId,
+      product_id: productId,
+      quantity,
+      type,
+      observation,
+      timestamp,
+    };
+
+    return this.http.post<{ message: string; output_id: string }>(
+      this.inventoryOutputUrl,
+      newOutput
+    );
+  }
 }
