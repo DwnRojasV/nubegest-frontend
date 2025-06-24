@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Product } from '../models/product.model';
+import { InventoryEntryService } from './inventoryEntry.service';
+import { InventoryOutputService } from './inventoryOutput.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,26 +13,61 @@ import { Product } from '../models/product.model';
 export class ProductService {
   private productApiUrl = `${environment.apiUrl}/product`;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private inventoryEntryService: InventoryEntryService,
+    private inventoryOutputService: InventoryOutputService
+  ) {}
 
-  getProductsByUser(userId: string): Observable<Product[]> {
-    return this.http.get<any[]>(`${this.productApiUrl}/${userId}`).pipe(
-      map((data) =>
-        data.map((item) => ({
-          barCode: item.bar_code,
-          brand: item.brand,
-          category: item.category,
-          description: item.description,
-          isActive: item.is_active,
-          minimumStock: item.minimum_stock,
-          name: item.name,
-          productId: item.product_id,
-          purchasePrice: item.purchase_price,
-          salePrice: item.sale_price,
-          unitOfMeasure: item.unit_of_measure,
-          userId: item.user_id,
-        }))
+  getLowStockProducts(userId: string): Observable<Product[]> {
+    return this.getProductsByUser(userId).pipe(
+      map((products) =>
+        products.filter((product) => product.quantity < product.minimumStock)
       )
     );
+  }
+
+  getProductsByUser(userId: string): Observable<Product[]> {
+    const products$ = this.http.get<any[]>(`${this.productApiUrl}/${userId}`);
+    const entries$ =
+      this.inventoryEntryService.getInventoryEntriesByUser(userId);
+    const outputs$ =
+      this.inventoryOutputService.getInventoryOutputsByUser(userId);
+    return forkJoin([products$, entries$, outputs$]).pipe(
+      map(([products, entries, outputs]) => {
+        return products.map((product) => {
+          const totalEntries = entries
+            .filter((entry) => entry.productId === product.product_id)
+            .reduce((sum, entry) => sum + entry.quantity, 0);
+          const totalOutputs = outputs
+            .filter((output) => output.productId === product.product_id)
+            .reduce((sum, output) => sum + output.quantity, 0);
+          const quantity = totalEntries - totalOutputs;
+
+          return {
+            barCode: product.bar_code,
+            brand: product.brand,
+            category: product.category,
+            description: product.description,
+            isActive: product.is_active,
+            minimumStock: product.minimum_stock,
+            name: product.name,
+            productId: product.product_id,
+            purchasePrice: product.purchase_price,
+            salePrice: product.sale_price,
+            unitOfMeasure: product.unit_of_measure,
+            userId: product.user_id,
+            quantity,
+          };
+        });
+      })
+    );
+  }
+
+  getTotalProducts(userId: string): Observable<number> {
+    return forkJoin([
+      this.inventoryEntryService.getTotalEntries(userId),
+      this.inventoryOutputService.getTotalOutputs(userId),
+    ]).pipe(map(([totalEntries, totalOutputs]) => totalEntries - totalOutputs));
   }
 }

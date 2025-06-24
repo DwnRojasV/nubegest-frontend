@@ -4,12 +4,12 @@ export interface Product {
   category: string;
   description: string;
   isActive?: boolean;
-  minimumStock?: number;
+  minimumStock: number;
   name: string;
   productId: string;
   purchasePrice?: number;
   salePrice?: number;
   unitOfMeasure?: string;
   userId: string;
-  quantity?: number
+  quantity: number
 }
