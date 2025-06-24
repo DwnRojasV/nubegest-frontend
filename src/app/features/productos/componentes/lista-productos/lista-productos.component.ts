@@ -44,41 +44,18 @@ export class ListaProductosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    forkJoin({
-      products: this.productService.getProductsByUser(this.userId),
-      entries: this.inventoryEntryService.getInventoryEntriesByUser(
-        this.userId
-      ),
-      outputs: this.inventoryOutputService.getInventoryOutputsByUser(
-        this.userId
-      ),
-    }).subscribe({
-      next: ({ products, entries, outputs }) => {
+    this.loadProducts();
+  }
+
+  loadProducts(): void {
+    this.productService.getProductsByUser(this.userId).subscribe({
+      next: (products) => {
         this.isloading = true;
-        this.entries = entries;
-        this.outputs = outputs;
-
-        this.products = products.map((product) => {
-          const totalEntries = entries
-            .filter((e) => e.productId === product.productId)
-            .reduce((sum, e) => sum + e.quantity, 0);
-
-          const totalOutputs = outputs
-            .filter((o) => o.productId === product.productId)
-            .reduce((sum, o) => sum + o.quantity, 0);
-
-          return {
-            ...product,
-            quantity: totalEntries - totalOutputs,
-          };
-        });
+        this.products = products;
         this.filteredProducts = [...this.products];
         this.setupSearch();
         this.updatePagination();
         this.isloading = false;
-      },
-      error: (err) => {
-        console.error('Error cargando datos:', err);
       },
     });
   }
