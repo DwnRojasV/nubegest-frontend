@@ -30,10 +30,29 @@ export class InventoryEntryService {
     );
   }
 
+  getTotalEntries(userId: string): Observable<number> {
+    return this.getInventoryEntriesByUser(userId).pipe(
+      map((entries) => entries.reduce((sum, entry) => sum + entry.quantity, 0))
+    );
+  }
+
+  getTotalEntrysByProduct(
+    userId: string,
+    productId: string
+  ): Observable<number> {
+    return this.getInventoryEntriesByUser(userId).pipe(
+      map((entries) =>
+        entries
+          .filter((entry) => entry.productId === productId)
+          .reduce((sum, entry) => sum + entry.quantity, 0)
+      )
+    );
+  }
+
   createInventoryEntry(
     userId: string,
     entry: InventoryEntry
-  ): Observable<{message: string, entry_id: string}> {
+  ): Observable<{ message: string; entry_id: string }> {
     const { productId, quantity, type, unitCost, timestamp, observation } =
       entry;
     const newEntry = {
@@ -43,8 +62,11 @@ export class InventoryEntryService {
       type,
       unit_cost: unitCost,
       observation,
-      timestamp
-    }
-    return this.http.post<{message: string, entry_id: string}>(this.inventoryEntryUrl, newEntry)
+      timestamp,
+    };
+    return this.http.post<{ message: string; entry_id: string }>(
+      this.inventoryEntryUrl,
+      newEntry
+    );
   }
 }

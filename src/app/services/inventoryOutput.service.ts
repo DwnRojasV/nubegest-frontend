@@ -29,6 +29,25 @@ export class InventoryOutputService {
     );
   }
 
+  getTotalOutputs(userId: string): Observable<number> {
+    return this.getInventoryOutputsByUser(userId).pipe(
+      map((outputs) => outputs.reduce((sum, o) => sum + o.quantity, 0))
+    );
+  }
+
+  getTotalOutputsByProduct(
+    userId: string,
+    productId: string
+  ): Observable<number> {
+    return this.getInventoryOutputsByUser(userId).pipe(
+      map((outputs) =>
+        outputs
+          .filter((output) => output.productId === productId)
+          .reduce((sum, output) => sum + output.quantity, 0)
+      )
+    );
+  }
+
   createInventoryOutput(
     userId: string,
     output: InventoryOutput
