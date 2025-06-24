@@ -26,52 +26,60 @@
         <div class="col-lg-3 col-6">
           <div class="small-box bg-info">
             <div class="inner">
-              <h3>150</h3>
+              <h3>{{ totalProducts }}</h3>
               <p>Productos Totales</p>
             </div>
             <div class="icon">
               <i class="fas fa-box"></i>
             </div>
-            <a href="#" class="small-box-footer">Más info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="productos" class="small-box-footer"
+              >Más info <i class="fas fa-arrow-circle-right"></i
+            ></a>
           </div>
         </div>
         <!-- Entradas -->
         <div class="col-lg-3 col-6">
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>53</h3>
+              <h3>{{ totalEntries }}</h3>
               <p>Entradas de Inventario</p>
             </div>
             <div class="icon">
               <i class="fas fa-arrow-down"></i>
             </div>
-            <a href="#" class="small-box-footer">Más info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="productos/entradas" class="small-box-footer"
+              >Más info <i class="fas fa-arrow-circle-right"></i
+            ></a>
           </div>
         </div>
         <!-- Salidas -->
         <div class="col-lg-3 col-6">
           <div class="small-box bg-warning">
             <div class="inner">
-              <h3>44</h3>
+              <h3>{{ totalOutputs }}</h3>
               <p>Salidas de Inventario</p>
             </div>
             <div class="icon">
               <i class="fas fa-arrow-up"></i>
             </div>
-            <a href="#" class="small-box-footer">Más info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="productos/salidas" class="small-box-footer"
+              >Más info <i class="fas fa-arrow-circle-right"></i
+            ></a>
           </div>
         </div>
         <!-- Alertas -->
         <div class="col-lg-3 col-6">
           <div class="small-box bg-danger">
             <div class="inner">
-              <h3>5</h3>
+              <h3>{{ totalCriticalStock }}</h3>
               <p>Stock Crítico</p>
             </div>
             <div class="icon">
               <i class="fas fa-exclamation-triangle"></i>
             </div>
-            <a href="#" class="small-box-footer">Ver detalles <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer"
+              >Ver detalles <i class="fas fa-arrow-circle-right"></i
+            ></a>
           </div>
         </div>
       </div>
@@ -82,7 +90,7 @@
         <div class="col-md-6">
           <div class="card h-100">
             <div class="card-header">
-              <h3 class="card-title">Productos Recientemente Añadidos</h3>
+              <h3 class="card-title">Productos con mayor stock</h3>
             </div>
             <div class="card-body">
               <table class="table table-bordered table-hover">
@@ -90,15 +98,17 @@
                   <tr>
                     <th>ID</th>
                     <th>Producto</th>
-                    <th>Fecha</th>
+                    <th>Cantidad</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td>101</td><td>Teclado Gamer</td><td>2025-06-17</td></tr>
-                  <tr><td>102</td><td>Mouse Inalámbrico</td><td>2025-06-16</td></tr>
-                  <tr><td>103</td><td>Pantalla LED 24"</td><td>2025-06-16</td></tr>
-                  <tr><td>104</td><td>Disco Duro SSD</td><td>2025-06-15</td></tr>
-                  <tr><td>105</td><td>Impresora Multifuncional</td><td>2025-06-14</td></tr>
+                  @for (product of highStockProducts; track product.productId) {
+                  <tr>
+                    <td>{{ product.productId }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.quantity }}</td>
+                  </tr>
+                  }
                 </tbody>
               </table>
             </div>
@@ -112,15 +122,36 @@
               <h3 class="card-title">Métricas Visuales</h3>
             </div>
             <div class="card-body">
-              <div style="display: flex; flex-direction: column; gap: 10px;">
-                <div style="background: #e0ffe0; padding: 10px; border-left: 5px solid green;">
-                  <strong>Inventario al Día:</strong> Todos los productos han sido actualizados correctamente.
+              <div style="display: flex; flex-direction: column; gap: 10px">
+                <div
+                  style="
+                    background: #e0ffe0;
+                    padding: 10px;
+                    border-left: 5px solid green;
+                  "
+                >
+                  <strong>Inventario al Día:</strong> Todos los productos han
+                  sido actualizados correctamente.
                 </div>
-                <div style="background: #fff3cd; padding: 10px; border-left: 5px solid orange;">
-                  <strong>Productos con baja rotación:</strong> 12 artículos no han tenido movimiento en 30 días.
+                <div
+                  style="
+                    background: #fff3cd;
+                    padding: 10px;
+                    border-left: 5px solid orange;
+                  "
+                >
+                  <strong>Productos con baja rotación:</strong> 12 artículos no
+                  han tenido movimiento en 30 días.
                 </div>
-                <div style="background: #f8d7da; padding: 10px; border-left: 5px solid red;">
-                  <strong>Alerta:</strong> 5 productos alcanzaron el límite mínimo de stock.
+                <div
+                  style="
+                    background: #f8d7da;
+                    padding: 10px;
+                    border-left: 5px solid red;
+                  "
+                >
+                  <strong>Alerta:</strong> 5 productos alcanzaron el límite
+                  mínimo de stock.
                 </div>
               </div>
             </div>
