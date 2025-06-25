@@ -4,6 +4,8 @@ import { InventoryEntryService } from '../../services/inventoryEntry.service';
 import { InventoryOutputService } from '../../services/inventoryOutput.service';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
+import { User } from '../../models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +16,8 @@ import { Product } from '../../models/product.model';
 })
 export class DashboardComponent implements OnInit {
   highStockProducts: Product[] = [];
-  userId: string = 'U00001';
+  userId: string = '';
+  userEmail: string | null = sessionStorage.getItem('userEmail');
   totalCriticalStock: number = 0;
   totalEntries: number = 0;
   totalOutputs: number = 0;
@@ -23,10 +26,12 @@ export class DashboardComponent implements OnInit {
   constructor(
     private inventoryEntryService: InventoryEntryService,
     private inventoryOutputService: InventoryOutputService,
-    private productService: ProductService
+    private productService: ProductService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.loadUserData();
     this.loadProducts();
     this.loadTotalProducts();
     this.loadTotalEntries();
@@ -75,5 +80,15 @@ export class DashboardComponent implements OnInit {
       error: (error) =>
         console.error('Error cargando el total de productos', error),
     });
+  }
+
+  loadUserData() {
+    const userData = sessionStorage.getItem('userData');
+    if (userData) {
+      const user: User = JSON.parse(userData);
+      this.userId = user.userId;
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 }
