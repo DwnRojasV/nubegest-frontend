@@ -11,6 +11,8 @@ import { InventoryOutputService } from '../../../../services/inventoryOutput.ser
 import { Product } from '../../../../models/product.model';
 import { ProductService } from '../../../../services/product.service';
 import { InventoryOutput } from '../../../../models/inventoryOutput.model';
+import { Router } from '@angular/router';
+import { User } from '../../../../models/user.model';
 
 @Component({
   selector: 'app-salidas',
@@ -36,10 +38,12 @@ export class SalidasInventarioComponent implements OnInit {
   constructor(
     private inventoryOutputService: InventoryOutputService,
     private productService: ProductService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.loadUserData()
     this.loadInventoryOutputs();
     this.loadProducts();
     this.form = this.fb.group({
@@ -72,6 +76,15 @@ export class SalidasInventarioComponent implements OnInit {
         this.products = data;
       },
     });
+  }
+  loadUserData(): void {
+    const userData = sessionStorage.getItem('userData');
+    if (userData) {
+      const user: User = JSON.parse(userData);
+      this.userId = user.userId;
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   getOutputKeys(outputs: InventoryOutput[]): void {
@@ -110,19 +123,19 @@ export class SalidasInventarioComponent implements OnInit {
     this.columns = columns;
   }
 
-  onSubmit():void {
-    if(this.form.valid){
+  onSubmit(): void {
+    if (this.form.valid) {
       this.inventoryOutputService
-      .createInventoryOutput(this.userId, this.form.value)
-      .subscribe({
-        next: (output) => {
-          alert("Salida creada exitosamente: "+  output.output_id)
-          this.loadInventoryOutputs()
-        }
-      })
+        .createInventoryOutput(this.userId, this.form.value)
+        .subscribe({
+          next: (output) => {
+            alert('Salida creada exitosamente: ' + output.output_id);
+            this.loadInventoryOutputs();
+          },
+        });
       this.form.reset();
     } else {
-      this.form.markAllAsTouched()
+      this.form.markAllAsTouched();
     }
   }
 }

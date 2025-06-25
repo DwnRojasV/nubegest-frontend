@@ -11,6 +11,8 @@ import { InventoryEntry } from '../../../../models/inventoryEntry.model';
 import { Product } from '../../../../models/product.model';
 import { ProductService } from '../../../../services/product.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { User } from '../../../../models/user.model';
 
 @Component({
   selector: 'app-entradas',
@@ -27,7 +29,7 @@ export class EntradasInventarioComponent implements OnInit {
   entries: InventoryEntry[] = [];
   keys: string[] = [];
   columns: any[] = [];
-  userId: string = 'U00001';
+  userId: string = '';
 
   //form
   products: Product[] = [];
@@ -36,10 +38,12 @@ export class EntradasInventarioComponent implements OnInit {
   constructor(
     private inventoryEntryService: InventoryEntryService,
     private productsService: ProductService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.loadUserData();
     this.loadInventoryEntries();
     this.loadProducts();
     this.form = this.fb.group({
@@ -136,6 +140,15 @@ export class EntradasInventarioComponent implements OnInit {
       this.form.reset();
     } else {
       this.form.markAllAsTouched();
+    }
+  }
+  loadUserData(): void {
+    const userData = sessionStorage.getItem('userData');
+    if (userData) {
+      const user: User = JSON.parse(userData);
+      this.userId = user.userId;
+    } else {
+      this.router.navigate(['/login']);
     }
   }
 }
