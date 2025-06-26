@@ -6,10 +6,10 @@ export interface Product {
   isActive?: boolean;
   minimumStock: number;
   name: string;
-  productId: string;
+  productId?: string; 
   purchasePrice?: number;
   salePrice?: number;
   unitOfMeasure?: string;
-  userId: string;
-  quantity: number
+  userId?: string; 
+  quantity?: number;
 }

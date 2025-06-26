@@ -22,7 +22,12 @@ export class ProductService {
   getLowStockProducts(userId: string): Observable<Product[]> {
     return this.getProductsByUser(userId).pipe(
       map((products) =>
-        products.filter((product) => product.quantity < product.minimumStock)
+        products.filter(
+          (product) =>
+            product.quantity !== undefined &&
+            product.minimumStock !== undefined &&
+            product.quantity < product.minimumStock
+        )
       )
     );
   }
@@ -69,5 +74,39 @@ export class ProductService {
       this.inventoryEntryService.getTotalEntries(userId),
       this.inventoryOutputService.getTotalOutputs(userId),
     ]).pipe(map(([totalEntries, totalOutputs]) => totalEntries - totalOutputs));
+  }
+
+  createProduct(
+    userId: string,
+    product: Product
+  ): Observable<{ message: string; product_id: string }> {
+    const {
+      barCode,
+      brand,
+      category,
+      description,
+      minimumStock,
+      name,
+      purchasePrice,
+      salePrice,
+      unitOfMeasure,
+    } = product;
+    const newProduct = {
+      user_id: userId,
+      bar_code: barCode,
+      brand,
+      category,
+      description,
+      minimum_stock: minimumStock,
+      name,
+      purchase_price: purchasePrice,
+      sale_price: salePrice,
+      unit_of_measure: unitOfMeasure,
+    };
+
+    return this.http.post<{ message: string; product_id: string }>(
+      this.productApiUrl,
+      newProduct
+    );
   }
 }
