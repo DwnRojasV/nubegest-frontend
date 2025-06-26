@@ -1,5 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  FormControl,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Product } from '../../../../models/product.model';
@@ -9,6 +15,8 @@ import { InventoryOutputService } from '../../../../services/inventoryOutput.ser
 import { InventoryEntry } from '../../../../models/inventoryEntry.model';
 import { InventoryOutput } from '../../../../models/inventoryOutput.model';
 import { forkJoin } from 'rxjs';
+import { Router } from '@angular/router';
+import { User } from '../../../../models/user.model';
 
 @Component({
   selector: 'app-lista-productos',
@@ -18,7 +26,9 @@ import { forkJoin } from 'rxjs';
   styleUrls: ['./lista-productos.component.css'],
 })
 export class ListaProductosComponent implements OnInit {
-  private userId: string = 'U00001';
+  @ViewChild('addProductModal') addProductModal!: ElementRef<HTMLDialogElement>;
+
+  userId: string = '';
   products: Product[] = [];
   entries: InventoryEntry[] = [];
   outputs: InventoryOutput[] = [];
@@ -37,14 +47,37 @@ export class ListaProductosComponent implements OnInit {
 
   isloading = false;
 
+  //form Add product
+  addProductForm!: FormGroup;
+
   constructor(
     private productService: ProductService,
     private inventoryEntryService: InventoryEntryService,
-    private inventoryOutputService: InventoryOutputService
+    private inventoryOutputService: InventoryOutputService,
+    private router: Router,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
+    this.loadUserData();
     this.loadProducts();
+    this.addProductForm = this.fb.group({
+      name: ['', Validators.required],
+      brand: ['', Validators.required],
+      description: [null, Validators.required],
+      barCode: [''],
+      category: ['', Validators.required],
+      unitOfMeasure: ['', Validators.required],
+      purchasePrice: [
+        0,
+        [Validators.min(0), Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')],
+      ],
+      salePrice: [
+        0,
+        [Validators.min(0), Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')],
+      ],
+      minimumStock: [0, [Validators.min(0), Validators.pattern('^[0-9]+$')]],
+    });
   }
 
   loadProducts(): void {
@@ -80,6 +113,24 @@ export class ListaProductosComponent implements OnInit {
     this.pageSize = parseInt(value);
     this.currentPage = 1;
     this.updatePagination();
+  }
+  onSubmitProduct(): void {
+    if (this.addProductForm.valid) {
+      console.log('Formulario enviado:', this.addProductForm.value);
+
+      this.productService
+        .createProduct(this.userId, this.addProductForm.value)
+        .subscribe({
+          next: (product) => {
+            alert('Producto creado exitosamente: ' + product.product_id);
+            this.loadProducts();
+          },
+        });
+
+      this.addProductForm.reset();
+    } else {
+      this.addProductForm.markAllAsTouched();
+    }
   }
 
   getPageNumbers(): number[] {
@@ -134,7 +185,7 @@ export class ListaProductosComponent implements OnInit {
     const lowerTerm = term.toLowerCase();
     this.filteredProducts = this.products.filter(
       (product) =>
-        product.productId.toLowerCase().includes(lowerTerm) ||
+        product.productId?.toLowerCase().includes(lowerTerm) ||
         product.name.toLowerCase().includes(lowerTerm) ||
         product.description.toLowerCase().includes(lowerTerm) ||
         product.brand.toLowerCase().includes(lowerTerm) ||
@@ -166,6 +217,24 @@ export class ListaProductosComponent implements OnInit {
   }
 
   onAddProduct(): void {
-    alert('Añadiendo producto');
+    this.openModal();
+  }
+
+  openModal(): void {
+    this.addProductModal.nativeElement.showModal();
+  }
+
+  closeModal() {
+    this.addProductModal.nativeElement.close();
+    this.addProductForm.reset();
+  }
+  loadUserData(): void {
+    const userData = sessionStorage.getItem('userData');
+    if (userData) {
+      const user: User = JSON.parse(userData);
+      this.userId = user.userId;
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 }
