@@ -1,0 +1,183 @@
+<div class="content-wrapper">
+  <!-- Encabezado -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Salidas de Inventario</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/dashboard">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="/productos">Productos</a></li>
+            <li class="breadcrumb-item active">Salidas</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contenido principal -->
+  <section class="content">
+    <div class="card">
+      <div class="card-header bg-danger">
+        <h3 class="card-title text-white">Registrar nueva salida</h3>
+      </div>
+      <div class="card-body">
+        <!-- Form Reactivo -->
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label for="producto">Producto</label>
+              <select
+                id="producto"
+                class="form-control"
+                formControlName="productId"
+                [class.is-invalid]="
+                  form.get('productId')?.invalid &&
+                  form.get('productId')?.touched
+                "
+              >
+                <option value="">Seleccione un producto:</option>
+                <option
+                  *ngFor="let product of products"
+                  [value]="product.productId"
+                >
+                  {{ product.name }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                  form.get('productId')?.invalid &&
+                  form.get('productId')?.touched
+                "
+                class="invalid-feedback"
+              >
+                <small *ngIf="form.get('productId')?.hasError('required')"
+                  >Este campo es obligatorio</small
+                >
+              </div>
+            </div>
+
+            <div class="col-md-2 mb-3">
+              <label for="quantity">Cantidad</label>
+              <input
+                type="number"
+                id="quantity"
+                class="form-control"
+                [class.is-invalid]="
+                  form.get('quantity')?.invalid && form.get('quantity')?.touched
+                "
+                formControlName="quantity"
+                placeholder="10"
+              />
+              <div
+                *ngIf="
+                  form.get('quantity')?.invalid && form.get('quantity')?.touched
+                "
+                class="invalid-feedback"
+              >
+                <small *ngIf="form.get('quantity')?.hasError('required')"
+                  >Este campo es obligatorio</small
+                >
+                <small *ngIf="form.get('quantity')?.hasError('min')"
+                  >Debe ser mayor que 0</small
+                >
+              </div>
+            </div>
+
+            <div class="col-md-2 mb-3">
+              <label for="type" title="Ej: Compra, ajuste, etc."
+                >Tipo de Salida</label
+              >
+              <input
+                type="text"
+                id="type"
+                class="form-control"
+                formControlName="type"
+                [class.is-invalid]="
+                  form.get('type')?.invalid && form.get('type')?.touched
+                "
+                placeholder="Escriba el tipo de entrada"
+              />
+              <div
+                *ngIf="form.get('type')?.invalid && form.get('type')?.touched"
+                class="invalid-feedback"
+              >
+                <small *ngIf="form.get('type')?.hasError('required')"
+                  >Este campo es obligatorio</small
+                >
+              </div>
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label for="timestamp">Fecha de Salida</label>
+              <input
+                type="date"
+                id="timestamp"
+                class="form-control"
+                formControlName="timestamp"
+                [class.is-invalid]="
+                  form.get('timestamp')?.invalid &&
+                  form.get('timestamp')?.touched
+                "
+              />
+              <div
+                *ngIf="
+                  form.get('timestamp')?.invalid &&
+                  form.get('timestamp')?.touched
+                "
+                class="invalid-feedback"
+              >
+                <small *ngIf="form.get('timestamp')?.hasError('required')"
+                  >Este campo es obligatorio</small
+                >
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="observation">Observación</label>
+              <textarea
+                id="observation"
+                class="form-control no-resize"
+                formControlName="observation"
+                [class.is-invalid]="
+                  form.get('observation')?.invalid &&
+                  form.get('observation')?.touched
+                "
+                placeholder="Escriba el mensaje."
+              ></textarea>
+              <div
+                *ngIf="
+                  form.get('observation')?.invalid &&
+                  form.get('quantity')?.touched
+                "
+                class="invalid-feedback"
+              >
+                <small *ngIf="form.get('observation')?.hasError('required')"
+                  >Este campo es obligatorio</small
+                >
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-danger mt-2">
+            Guardar Salida
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Tabla de salidas registradas -->
+    <div class="card mt-4">
+      <div class="card-header bg-secondary">
+        <h3 class="card-title text-white">Historial de Salidas</h3>
+      </div>
+      <div class="card-body">
+        <app-data-table
+          [items]="outputs"
+          [displayedColumns]="columns"
+          [displayKeys]="keys"
+        ></app-data-table>
+      </div>
+    </div>
+  </section>
+</div>

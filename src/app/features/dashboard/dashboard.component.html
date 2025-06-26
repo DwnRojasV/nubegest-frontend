@@ -5,16 +5,15 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Dashboard</h1>
+          <h1>Inventario - Dashboard</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item active"><a href="#">Dashboard</a></li>
-            
+            <li class="breadcrumb-item active">Dashboard</li>
           </ol>
         </div>
       </div>
-    </div><!-- /.container-fluid -->
+    </div>
   </section>
 
   <!-- Main content -->
@@ -22,164 +21,150 @@
     <div class="container-fluid">
       <!-- Small boxes (Stat box) -->
       <div class="row">
-        <!-- Entradas de Inventario -->
-        <div class="col-lg-4 col-6">
+        <!-- Productos Totales -->
+        <div class="col-lg-3 col-6">
+          <div class="small-box bg-info">
+            <div class="inner">
+              <h3>{{ totalProducts }}</h3>
+              <p>Productos Totales</p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-box"></i>
+            </div>
+            <a href="productos" class="small-box-footer"
+              >Más info <i class="fas fa-arrow-circle-right"></i
+            ></a>
+          </div>
+        </div>
+        <!-- Entradas -->
+        <div class="col-lg-3 col-6">
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>53</h3>
+              <h3>{{ totalEntries }}</h3>
               <p>Entradas de Inventario</p>
             </div>
             <div class="icon">
               <i class="fas fa-arrow-down"></i>
             </div>
-            <a href="#" class="small-box-footer">Más info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="productos/entradas" class="small-box-footer"
+              >Más info <i class="fas fa-arrow-circle-right"></i
+            ></a>
           </div>
         </div>
-        <!-- Salidas de Inventario -->
-        <div class="col-lg-4 col-6">
+        <!-- Salidas -->
+        <div class="col-lg-3 col-6">
           <div class="small-box bg-warning">
             <div class="inner">
-              <h3>44</h3>
+              <h3>{{ totalOutputs }}</h3>
               <p>Salidas de Inventario</p>
             </div>
             <div class="icon">
               <i class="fas fa-arrow-up"></i>
             </div>
-            <a href="#" class="small-box-footer">Más info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="productos/salidas" class="small-box-footer"
+              >Más info <i class="fas fa-arrow-circle-right"></i
+            ></a>
           </div>
         </div>
-        <!-- Alertas de Stock Bajo -->
-        <div class="col-lg-4 col-6">
+        <!-- Alertas -->
+        <div class="col-lg-3 col-6">
           <div class="small-box bg-danger">
             <div class="inner">
-              <h3>5</h3>
-              <p>Alertas de Stock Bajo</p>
+              <h3>{{ totalCriticalStock }}</h3>
+              <p>Stock Crítico</p>
             </div>
             <div class="icon">
               <i class="fas fa-exclamation-triangle"></i>
             </div>
-            <a href="#" class="small-box-footer">Más info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer"
+              >Ver detalles <i class="fas fa-arrow-circle-right"></i
+            ></a>
           </div>
         </div>
-
-        <!-- Total de Ventas -->
-        <!-- <div class="col-lg-3 col-6">
-          <div class="small-box bg-primary">
-            <div class="inner">
-              <h3>$10,000</h3>
-              <p>Total de Ventas</p>
-            </div>
-            <div class="icon">
-              <i class="fas fa-file-invoice-dollar"></i>
-            </div>
-            <a href="#" class="small-box-footer">Más info <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div> -->
       </div>
-      <!-- /.row -->
 
-      <!-- Fila con la tabla de productos más vendidos y el gráfico -->
+      <!-- Gráficos y tablas -->
       <div class="row">
-        <!-- Tabla de Productos Más Vendidos -->
+        <!-- Tabla de Productos Recientes -->
         <div class="col-md-6">
           <div class="card h-100">
             <div class="card-header">
-              <h3 class="card-title">Productos Con Mayor Stock</h3>
+              <h3 class="card-title">Productos con mayor stock</h3>
             </div>
-            <!-- /.card-header -->
             <div class="card-body">
-              <table class="table table-bordered table-striped">
+              @if(highStockProducts.length !== 0){
+              <table class="table table-bordered table-hover">
                 <thead>
                   <tr>
                     <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Cantidad Vendida</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
                   </tr>
                 </thead>
                 <tbody>
+                  @for (product of highStockProducts; track product.productId) {
                   <tr>
-                    <td>1</td>
-                    <td>Producto A</td>
-                    <td>120</td>
+                    <td>{{ product.productId }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.quantity }}</td>
                   </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Producto B</td>
-                    <td>98</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Producto C</td>
-                    <td>75</td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>Producto D</td>
-                    <td>60</td>
-                  </tr>
-                  <tr>
-                    <td>5</td>
-                    <td>Producto E</td>
-                    <td>50</td>
-                  </tr>
+                  }
                 </tbody>
               </table>
+              }@else {
+              <div class="no-data">No hay productos para mostrar</div>
+              }
             </div>
-            <!-- /.card-body -->
           </div>
         </div>
 
-        <!-- Gráfico de Movimientos de Inventario -->
+        <!-- Métricas HTML sin librerías -->
         <div class="col-md-6">
           <div class="card h-100">
             <div class="card-header">
-              <h3 class="card-title">Movimientos de Inventario</h3>
+              <h3 class="card-title">Métricas Visuales</h3>
             </div>
             <div class="card-body">
-              <!-- Aquí va la gráfica -->
-              <canvas id="inventoryChart" style="height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+              <div style="display: flex; flex-direction: column; gap: 10px">
+                <div
+                  style="
+                    background: #e0ffe0;
+                    padding: 10px;
+                    border-left: 5px solid green;
+                  "
+                >
+                  <strong>Inventario al Día:</strong> Todos los productos han
+                  sido actualizados correctamente.
+                </div>
+                <div
+                  style="
+                    background: #fff3cd;
+                    padding: 10px;
+                    border-left: 5px solid orange;
+                  "
+                >
+                  <strong>Productos con baja rotación:</strong> 12 artículos no
+                  han tenido movimiento en 30 días.
+                </div>
+                <div
+                  style="
+                    background: #f8d7da;
+                    padding: 10px;
+                    border-left: 5px solid red;
+                  "
+                >
+                  <strong>Alerta:</strong> 5 productos alcanzaron el límite
+                  mínimo de stock.
+                </div>
+              </div>
             </div>
-            <!-- /.card-body -->
           </div>
         </div>
       </div>
-      <!-- /.row -->
     </div>
-    <!-- /.container-fluid -->
   </section>
-  <!-- /.content -->
 </div>
-<!-- /.content-wrapper -->
 
-<script>
-  // Example chart using Chart.js for the inventory movements
-  var ctx = document.getElementById('inventoryChart').getContext('2d');
-  var inventoryChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
-      datasets: [{
-        label: 'Entradas',
-        backgroundColor: '#28a745',
-        data: [12, 19, 3, 5, 2, 3]
-      }, {
-        label: 'Salidas',
-        backgroundColor: '#dc3545',
-        data: [2, 3, 20, 5, 1, 4]
-      }]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        x: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-</script>
-
-<!-- CSS adicional para garantizar el mismo alto -->
 <style>
   .h-100 {
     height: 100%;

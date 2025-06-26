@@ -5,7 +5,9 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './footer.component.html',
-  styles: ``
+  styles: `.main-footer{
+  padding: 0.2rem;
+  }`
 })
 export class FooterComponent {
 

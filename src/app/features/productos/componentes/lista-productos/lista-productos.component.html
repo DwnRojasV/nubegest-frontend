@@ -7,127 +7,422 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item active">
-              <a href="/productos">Productos</a>
+            <li class="breadcrumb-item">
+              <a href="/dashboard">Inicio</a>
             </li>
+            <li class="breadcrumb-item active">Productos</li>
           </ol>
         </div>
       </div>
     </div>
   </section>
+
   <section class="content">
-    <!-- Product Table -->
     <div class="card h-100">
       <div class="card-header">
         <h3>Listado de productos</h3>
       </div>
       <div class="card-body">
-        <table class="table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Descripción</th>
-              <th>Marca</th>
-              <th>Categoría</th>
-              <th>Unidad</th>
-              <th>Cantidad</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Producto A</td>
-              <td>Descripción del producto A</td>
-              <td>Marca X</td>
-              <td>Electrónica</td>
-              <td>Unidad</td>
-              <td>50</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Producto B</td>
-              <td>Descripción del producto B</td>
-              <td>Marca Y</td>
-              <td>Hogar</td>
-              <td>Unidad</td>
-              <td>30</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Producto C</td>
-              <td>Descripción del producto C</td>
-              <td>Marca Z</td>
-              <td>Alimentos</td>
-              <td>Kg</td>
-              <td>100</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Producto D</td>
-              <td>Descripción del producto D</td>
-              <td>Marca A</td>
-              <td>Ropa</td>
-              <td>Pieza</td>
-              <td>200</td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Producto E</td>
-              <td>Descripción del producto E</td>
-              <td>Marca B</td>
-              <td>Electrodomésticos</td>
-              <td>Unidad</td>
-              <td>10</td>
-            </tr>
-            <tr>
-              <td>6</td>
-              <td>Producto F</td>
-              <td>Descripción del producto F</td>
-              <td>Marca C</td>
-              <td>Deportes</td>
-              <td>Unidad</td>
-              <td>40</td>
-            </tr>
-            <tr>
-              <td>7</td>
-              <td>Producto G</td>
-              <td>Descripción del producto G</td>
-              <td>Marca D</td>
-              <td>Juguetes</td>
-              <td>Unidad</td>
-              <td>25</td>
-            </tr>
-            <tr>
-              <td>8</td>
-              <td>Producto H</td>
-              <td>Descripción del producto H</td>
-              <td>Marca E</td>
-              <td>Muebles</td>
-              <td>Unidad</td>
-              <td>15</td>
-            </tr>
-            <tr>
-              <td>9</td>
-              <td>Producto I</td>
-              <td>Descripción del producto I</td>
-              <td>Marca F</td>
-              <td>Herramientas</td>
-              <td>Unidad</td>
-              <td>50</td>
-            </tr>
-            <tr>
-              <td>10</td>
-              <td>Producto J</td>
-              <td>Descripción del producto J</td>
-              <td>Marca G</td>
-              <td>Automotriz</td>
-              <td>Unidad</td>
-              <td>5</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="search-container">
+          <input
+            type="text"
+            [formControl]="searchControl"
+            placeholder="Busca por producto"
+            class="search-input"
+          />
+          <button class="add-button" (click)="onAddProduct()">
+            Añadir Producto
+          </button>
+        </div>
+        @if (isloading) {
+        <div class="loading">Loading products...</div>
+        } @else { @if(displayedProducts.length > 0){
+        <div class="table-wrapper">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Marca</th>
+                <th>Categoría</th>
+                <th>Unidad</th>
+                <th>Cantidad</th>
+                <th>Stock Mínimo</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (product of displayedProducts; track product.productId){
+              <tr>
+                <td>{{ product.productId }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.brand }}</td>
+                <td>{{ product.category }}</td>
+                <td>{{ product.unitOfMeasure }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>{{ product.minimumStock }}</td>
+                <td>
+                  <!-- <button
+                    *ngIf="product.productId"
+                    class="btn btn-sm btn-warning mr-1"
+                    (click)="editProduct(product.productId)"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </button> -->
+                  <button
+                    class="btn btn-sm btn-danger"
+                    (click)="eliminarProducto('1')"
+                  >
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </td>
+              </tr>
+
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pagination">
+          <div class="pagination-info">
+            {{ getPagitationInfo() }}
+          </div>
+          <div class="pagination-controls">
+            <label>
+              Tamaño de página:
+              <select
+                class="page-size-select"
+                [value]="pageSize"
+                (change)="onPageSizeChange($event)"
+              >
+                @for (size of pageSizeOptions; track size){
+                <option [value]="size">{{ size }}</option>
+                }
+              </select>
+            </label>
+
+            <div class="pagination-buttons">
+              <button
+                class="page-button"
+                [disabled]="currentPage === 1"
+                (click)="previousPage()"
+              >
+                Previus
+              </button>
+
+              @for (page of getPageNumbers(); track page){
+              <button
+                class="page-button"
+                [class.active]="page === currentPage"
+                (click)="goToPage(page)"
+              >
+                {{ page }}
+              </button>
+              }
+
+              <button
+                class="page-button"
+                [disabled]="currentPage === totalPages"
+                (click)="nextPage()"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+
+        } @else {
+        <div class="no-data">
+          @if(searchControl.value){ No se encontrarón Productos que coincidan
+          con "{{ searchControl.value }}" }@else { No hay productos disponibles
+          }
+        </div>
+        } }
       </div>
     </div>
   </section>
 </div>
+<dialog #addProductModal class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="modalTitle">
+        Formulario para Añadir productos
+      </h5>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="closeModal()"
+      ></button>
+    </div>
+
+    <form [formGroup]="addProductForm" (ngSubmit)="onSubmitProduct()">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="productName" class="form-label"
+                >Nombre del producto</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="productName"
+                formControlName="name"
+                [class.is-invalid]="
+                  addProductForm.get('name')?.invalid &&
+                  addProductForm.get('name')?.touched
+                "
+                placeholder="Ingrese el nombre del producto"
+              />
+              <div
+                *ngIf="
+                  addProductForm.get('name')?.invalid &&
+                  addProductForm.get('name')?.touched
+                "
+                class="invalid-feedback"
+              >
+                <small *ngIf="addProductForm.get('name')?.hasError('required')"
+                  >Este campo es obligatorio</small
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="productBrand" class="form-label">Marca</label>
+              <input
+                type="text"
+                class="form-control"
+                id="productBrand"
+                formControlName="brand"
+                [class.is-invalid]="
+                  addProductForm.get('brand')?.invalid &&
+                  addProductForm.get('brand')?.touched
+                "
+                placeholder="Ingrese la marca"
+              />
+              <div
+                *ngIf="
+                  addProductForm.get('brand')?.invalid &&
+                  addProductForm.get('brand')?.touched
+                "
+                class="invalid-feedback"
+              >
+                <small *ngIf="addProductForm.get('brand')?.hasError('required')"
+                  >Este campo es obligatorio</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Descripción</label>
+          <textarea
+            class="form-control"
+            id="description"
+            formControlName="description"
+            [class.is-invalid]="
+              addProductForm.get('description')?.invalid &&
+              addProductForm.get('description')?.touched
+            "
+            placeholder="Ingrese la Descripción del producto"
+          ></textarea>
+          <div
+            *ngIf="
+              addProductForm.get('description')?.invalid &&
+              addProductForm.get('description')?.touched
+            "
+            class="invalid-feedback"
+          >
+            <small
+              *ngIf="addProductForm.get('description')?.hasError('required')"
+              >Este campo es obligatorio</small
+            >
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <div class="mb-3">
+                <label for="barCode" class="form-label">Código de Barras</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="barCode"
+                  formControlName="barCode"
+                  placeholder="Ingrese el código de barras"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="productCategory" class="form-label">Categoría</label>
+              <input
+                type="text"
+                class="form-control"
+                id="productCategory"
+                formControlName="category"
+                [class.is-invalid]="
+                  addProductForm.get('category')?.invalid &&
+                  addProductForm.get('category')?.touched
+                "
+                placeholder="Ingrese la categoría"
+              />
+              <div
+                *ngIf="
+                  addProductForm.get('category')?.invalid &&
+                  addProductForm.get('category')?.touched
+                "
+                class="invalid-feedback"
+              >
+                <small
+                  *ngIf="addProductForm.get('category')?.hasError('required')"
+                  >Este campo es obligatorio</small
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="purchasePrice" class="form-label"
+                >Precio de compra</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="purchasePrice"
+                formControlName="purchasePrice"
+                [class.is-invalid]="
+                  addProductForm.get('purchasePrice')?.invalid &&
+                  addProductForm.get('purchasePrice')?.touched
+                "
+                placeholder="0.01"
+              />
+              <div
+                *ngIf="
+                  addProductForm.get('purchasePrice')?.invalid &&
+                  addProductForm.get('purchasePrice')?.touched
+                "
+                class="invalid-feedback"
+              >
+                <small
+                  *ngIf="
+                    addProductForm.get('purchasePrice')?.hasError('required')
+                  "
+                  >Este campo es obligatorio</small
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="salePrice" class="form-label">Precio de venta</label>
+              <input
+                type="number"
+                class="form-control"
+                id="salePrice"
+                formControlName="salePrice"
+                [class.is-invalid]="
+                  addProductForm.get('salePrice')?.invalid &&
+                  addProductForm.get('salePrice')?.touched
+                "
+                placeholder="0.01"
+              />
+              <div
+                *ngIf="
+                  addProductForm.get('salePrice')?.invalid &&
+                  addProductForm.get('salePrice')?.touched
+                "
+                class="invalid-feedback"
+              >
+                <small
+                  *ngIf="addProductForm.get('salePrice')?.hasError('required')"
+                  >Este campo es obligatorio</small
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="unitOfMeasure" class="form-label"
+                >Unidad de medida</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="unitOfMeasure"
+                formControlName="unitOfMeasure"
+                [class.is-invalid]="
+                  addProductForm.get('unitOfMeasure')?.invalid &&
+                  addProductForm.get('unitOfMeasure')?.touched
+                "
+                placeholder="Ej: Unidad..."
+              />
+              <div
+                *ngIf="
+                  addProductForm.get('unitOfMeasure')?.invalid &&
+                  addProductForm.get('unitOfMeasure')?.touched
+                "
+                class="invalid-feedback"
+              >
+                <small
+                  *ngIf="
+                    addProductForm.get('unitOfMeasure')?.hasError('required')
+                  "
+                  >Este campo es obligatorio</small
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="minimumStock" class="form-label">Stock Mínimo</label>
+              <input
+                type="number"
+                class="form-control"
+                id="minimumStock"
+                formControlName="minimumStock"
+                [class.is-invalid]="
+                  addProductForm.get('minimumStock')?.invalid &&
+                  addProductForm.get('minimumStock')?.touched
+                "
+                placeholder="0.01"
+              />
+              <div
+                *ngIf="
+                  addProductForm.get('minimumStock')?.invalid &&
+                  addProductForm.get('minimumStock')?.touched
+                "
+                class="invalid-feedback"
+              >
+                <small
+                  *ngIf="
+                    addProductForm.get('minimumStock')?.hasError('required')
+                  "
+                  >Este campo es obligatorio</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">
+          Cancel
+        </button>
+        <button type="submit" class="btn btn-primary">Añadir producto</button>
+      </div>
+    </form>
+  </div>
+</dialog>

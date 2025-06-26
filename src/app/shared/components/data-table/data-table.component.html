@@ -1,0 +1,91 @@
+<div class="search-container">
+  <input
+    class="search-input"
+    type="text"
+    [formControl]="searchControl"
+    placeholder="Buscar..."
+  />
+</div>
+
+@if(isLoading){
+<div class="loading">Loading Data...</div>
+} @else { @if(displayedItems.length >0){
+<div class="table-wrapper">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th *ngFor="let col of displayedColumns">{{ col.label }}</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of displayedItems">
+        <td *ngFor="let key of displayKeys">{{ formatValue(item[key]) }}</td>
+        <td>
+          <!-- <button class="btn btn-sm btn-warning mr-1" (click)="onEdit(item)">
+            <i class="fas fa-edit"></i>
+          </button> -->
+          <button class="btn btn-sm btn-danger" (click)="onDelete(item)">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="pagination">
+  <div class="pagination-info">
+    {{ getPaginationInfo() }}
+  </div>
+  <div class="pagination-controls">
+    <label>
+      Tamaño de página:
+      <select
+        class="page-size-select"
+        [value]="pageSize"
+        (change)="onPageSizeChange($event)"
+      >
+        @for (size of pageSizeOptions; track size){
+        <option [value]="size">
+          {{ size }}
+        </option>
+        }
+      </select>
+    </label>
+    <div class="pagination-buttons">
+      <button
+        class="page-button"
+        [disabled]="currentPage === 1"
+        (click)="previousPage()"
+      >
+        Previous
+      </button>
+    </div>
+    @for (page of getPageNumbers(); track page){
+    <button
+      class="page-button"
+      [class.active]="page === currentPage"
+      (click)="goToPage(page)"
+    >
+      {{ page }}
+    </button>
+    }
+
+    <button
+      class="page-button"
+      [disabled]="currentPage === totalPages"
+      (click)="nextPage()"
+    >
+      Next
+    </button>
+  </div>
+</div>
+
+} @else {
+<div class="no-data">
+  @if(searchControl.value){ No se encontraron items que coincidan con "{{
+    searchControl.value
+  }}" } @else { No hay ítems disponibles }
+</div>
+} }

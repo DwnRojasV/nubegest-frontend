@@ -1,39 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
-:root{
-  --nubegest-primary-color: #5783DE;
+:root {
+  --nubegest-primary-color: #5783de;
   --nubegest-dark-blue-color: #101b31;
   --nubegest-background-color: #192a4c;
 }
 
 .card-header {
-  background-color: var(--nubegest-background-color) !important; /* Cambia el color de fondo */
+  background-color: var(
+    --nubegest-background-color
+  ) !important; /* Cambia el color de fondo */
   color: white !important; /* Cambia el color del texto */
   border-bottom: 2px solid var(--nubegest-dark-blue-color) !important; /* Personaliza el borde */
 }
 
-
 /* Sidebar styles */
 .main-sidebar {
   background-color: var(--nubegest-background-color) !important; /* Verde  */
-  color: #FFFFFF !important; /* Texto en blanco */
+  color: #ffffff !important; /* Texto en blanco */
 }
 
 .main-sidebar .nav-link {
-  color: #FFFFFF !important; /* Blanco para el texto */
+  color: #ffffff !important; /* Blanco para el texto */
 }
 
-.main-sidebar .nav-link:hover, .main-sidebar .nav-link.active {
-  background-color: var(--nubegest-primary-color) !important; /* Gris oscuro para hover y activos */
-  color: #FFFFFF !important; /* Blanco para el texto */
+.main-sidebar .nav-link:hover,
+.main-sidebar .nav-link.active {
+  background-color: var(
+    --nubegest-primary-color
+  ) !important; /* Gris oscuro para hover y activos */
+  color: #ffffff !important; /* Blanco para el texto */
 }
 
 .main-sidebar .nav-icon {
-  color: #FFFFFF !important;
+  color: #ffffff !important;
 }
 
 .brand-link {
-  background-color: var(--nubegest-dark-blue-color) !important; /* Gris oscuro para el logo */
-  color: #FFFFFF !important; /* Blanco para el texto */
+  background-color: var(
+    --nubegest-dark-blue-color
+  ) !important; /* Gris oscuro para el logo */
+  color: #ffffff !important; /* Blanco para el texto */
 }
 
 .brand-link .brand-image {
@@ -42,7 +48,7 @@
 
 .brand-text {
   font-weight: bold !important;
-  color: #FFFFFF !important; /* Blanco para el texto del nombre */
+  color: #ffffff !important; /* Blanco para el texto del nombre */
 }
 
 /* Navbar styles */
@@ -52,7 +58,7 @@
 }
 
 .main-header .nav-link {
-  color: var(--nubegest-dark-blue-color) !important; 
+  color: var(--nubegest-dark-blue-color) !important;
 }
 
 .main-header .nav-link:hover {
@@ -72,6 +78,7 @@
 .main-footer {
   background-color: #f2f2f2 !important;
   color: var(--nubegest-dark-blue-color) !important; /* Verde  para el texto */
+  font-size: 12px;
 }
 
 .main-footer a {
@@ -85,7 +92,6 @@
 .float-right {
   color: var(--nubegest-dark-blue-color) !important;
 }
-
 
 ngx-datatable {
   width: 100% !important;
