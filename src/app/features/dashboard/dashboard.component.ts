@@ -42,7 +42,7 @@ export class DashboardComponent implements OnInit {
     this.productService.getProductsByUser(this.userId).subscribe({
       next: (products) =>
         (this.highStockProducts = products
-          .sort((a, b) => b.quantity - a.quantity)
+          .sort((a, b) =>  (b.quantity ?? 0) - (a.quantity ?? 0))
           .slice(0, 5)),
     });
   }
